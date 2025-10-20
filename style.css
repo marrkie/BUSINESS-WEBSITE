@@ -1,0 +1,417 @@
+:root {
+    --brand: #A85C3A;
+    --brand-dark: #7A3E24;
+    --text: #333;
+    --card: #fff8f5;
+    --line: #e8dfdb;
+    --radius: 16px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'League Spartan', sans-serif;
+    color: var(--text);
+    background: #fff;
+    line-height: 1.45;
+}
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--brand);
+    color: #fff;
+    padding: 20px 14px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, .15);
+}
+
+.wrap {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.brand img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.brand b {
+    font-size: 1.3rem;
+}
+
+nav {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    background: var(--brand-dark);
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-weight: 700;
+    transition: 0.3s ease;
+}
+
+.btn:hover {
+    filter: brightness(1.15);
+    transform: scale(1.05);
+}
+
+main {
+    max-width: 1000px;
+    margin: 26px auto;
+    padding: 0 14px;
+}
+
+.hero {
+    display: grid;
+    gap: 12px;
+    padding: 24px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: linear-gradient(135deg, #fff2eb, #ffe5d5);
+}
+
+.hero h1 {
+    margin: 0;
+    font-size: 2rem;
+    color: var(--brand-dark);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 14px;
+    margin-top: 18px;
+}
+
+.card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .07);
+    display: flex;
+    flex-direction: column;
+}
+
+.card img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+}
+
+.pad {
+    padding: 12px;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+}
+
+.price {
+    font-weight: 800;
+    color: var(--brand-dark);
+}
+
+.add {
+    border: none;
+    background: var(--brand-dark);
+    color: #fff;
+    padding: 8px 10px;
+    border-radius: 10px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.add:hover {
+    background: #5c2d1c;
+}
+
+#cart-box {
+    position: fixed;
+    top: 70px;
+    right: 20px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 16px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .15);
+    width: 280px;
+    display: none;
+    z-index: 100;
+}
+
+#cart-box h3 {
+    margin-top: 0;
+    color: var(--brand-dark);
+}
+
+.remove-btn {
+    background: none;
+    border: none;
+    color: red;
+    cursor: pointer;
+}
+
+.checkout {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background: var(--brand);
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.checkout:hover {
+    background: #7A3E24;
+}
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(6px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1200;
+}
+
+#popup {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    max-width: 320px;
+}
+
+#toast {
+    visibility: hidden;
+    min-width: 280px;
+    color: #fff;
+    border-radius: 8px;
+    padding: 14px;
+    position: fixed;
+    right: -320px;
+    bottom: 40px;
+    opacity: 0;
+    transition: all 0.5s;
+}
+
+#toast.show {
+    visibility: visible;
+    right: 30px;
+    opacity: 1;
+}
+
+.toast-add {
+    background: #28a745;
+}
+
+.toast-remove {
+    background: #dc3545;
+}
+
+.toast-checkout {
+    background: #007bff;
+}
+
+
+/* ===== General Styles ===== */
+
+body {
+    font-family: 'League Spartan', sans-serif;
+    margin: 0;
+    background: #fff8f3;
+    color: #3e2f2f;
+}
+
+
+/* ===== Product Cards ===== */
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    padding: 20px;
+}
+
+.card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border 0.2s;
+    overflow: hidden;
+    border: 2px solid transparent;
+}
+
+.card img {
+    width: 100%;
+    border-radius: 16px 16px 0 0;
+}
+
+.card .pad {
+    padding: 15px;
+}
+
+.card .title {
+    font-size: 1.2rem;
+    color: #4a2e2e;
+    margin-bottom: 6px;
+}
+
+.card .meta {
+    font-size: 0.9rem;
+    color: #6b5555;
+    margin-bottom: 12px;
+}
+
+
+/* ===== Highlight Effect ===== */
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: #f7b267;
+    box-shadow: 0 8px 15px rgba(247, 178, 103, 0.4);
+}
+
+
+/* ===== Buttons ===== */
+
+.btn,
+.add,
+.checkout,
+.yes-btn,
+.no-btn {
+    background: #f7b267;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.btn:hover,
+.add:hover,
+.checkout:hover,
+.yes-btn:hover,
+.no-btn:hover {
+    background: #ff9f1c;
+    transform: scale(1.05);
+}
+
+
+/* ===== Price & Layout ===== */
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+/* ===== Active Category Highlight ===== */
+
+.tab-btn {
+    background: #eee;
+    border: none;
+    padding: 8px 16px;
+    margin: 4px;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+
+.tab-btn.active {
+    background: #f7b267;
+    color: white;
+}
+
+.tab-btn:hover {
+    background: #ff9f1c;
+    color: white;
+}
+
+
+/* ===== Toast Notification (Optional) ===== */
+
+#toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #4a2e2e;
+    color: white;
+    padding: 12px 18px;
+    border-radius: 10px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+#toast.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+nav .btn:first-child {
+    background: #f7b267;
+    color: white;
+    border-radius: 8px;
+}
+
+nav .btn:first-child:hover {
+    background: #ff9f1c;
+}
+
+
+/* General modal styles */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(3px);
+}

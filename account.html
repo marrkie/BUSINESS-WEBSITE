@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Account Information | Warm Crumbs & Coffee</title>
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            background: #faf7f2;
+            font-family: 'League Spartan', sans-serif;
+        }
+        
+        .account {
+            max-width: 700px;
+            margin: 100px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 14px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .account h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #663300;
+        }
+        
+        .section {
+            margin-top: 30px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+        
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 12px;
+        }
+        
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 4px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+        
+        button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background: #663300;
+            color: white;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        
+        button:hover {
+            background: #996633;
+        }
+        
+        .checkout-history {
+            margin-top: 10px;
+        }
+        
+        .checkout-item {
+            background: #f7f3ee;
+            border-radius: 8px;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+        }
+        
+        .no-history {
+            color: #777;
+        }
+        
+        .btn-back {
+            display: block;
+            margin: 30px auto 10px;
+            text-align: center;
+            text-decoration: none;
+            background: #663300;
+            color: #fff;
+            padding: 10px 25px;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+        
+        .btn-back:hover {
+            background: #996633;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="wrap">
+            <a class="brand" href="index.html">
+                <img src="logo.jpg" alt="Mark's Warm Crumbs & Tea">
+                <b>Mark's Warm Crumbs & Coffee</b>
+            </a>
+        </div>
+    </header>
+
+    <section class="account">
+        <h2>Account Information</h2>
+
+        <!-- USER INFO -->
+        <div class="section">
+            <h3>👤 Personal Info</h3>
+            <label>Name</label>
+            <input type="text" id="user-name" placeholder="Enter name" />
+
+            <label>Email</label>
+            <input type="email" id="user-email" placeholder="Enter email" />
+
+            <button onclick="saveInfo()">Save Changes</button>
+        </div>
+
+        <!-- CHANGE PASSWORD -->
+        <div class="section">
+            <h3>🔒 Change Password</h3>
+            <label>Current Password</label>
+            <input type="password" id="current-pass" placeholder="Enter current password" />
+
+            <label>New Password</label>
+            <input type="password" id="new-pass" placeholder="Enter new password" />
+
+            <button onclick="changePassword()">Update Password</button>
+        </div>
+
+        <!-- CHECKOUT HISTORY -->
+        <div class="section">
+            <h3>🧾 Checkout History</h3>
+            <div id="history-container" class="checkout-history">
+                <p class="no-history">No checkout history yet.</p>
+            </div>
+        </div>
+
+        <a href="index.html" class="btn-back">← Back to Home</a>
+    </section>
+
+    <script>
+        // 🔹 Load user info
+        let user = JSON.parse(localStorage.getItem("loggedInUser"));
+        if (!user) {
+            alert("Please log in first.");
+            window.location.href = "welcome.html";
+        }
+
+        document.getElementById("user-name").value = user.name || "";
+        document.getElementById("user-email").value = user.email || "";
+
+        // 🔹 Save updated info
+        function saveInfo() {
+            const newName = document.getElementById("user-name").value.trim();
+            const newEmail = document.getElementById("user-email").value.trim();
+
+            if (!newName || !newEmail) {
+                alert("Please fill out all fields.");
+                return;
+            }
+
+            user.name = newName;
+            user.email = newEmail;
+            localStorage.setItem("loggedInUser", JSON.stringify(user));
+            localStorage.setItem(user.username, JSON.stringify(user));
+
+            alert("✅ Information updated successfully!");
+        }
+
+        // 🔹 Change password
+        function changePassword() {
+            const current = document.getElementById("current-pass").value;
+            const newPass = document.getElementById("new-pass").value;
+
+            if (current !== user.password) {
+                alert("❌ Incorrect current password!");
+                return;
+            }
+            if (newPass.length < 6) {
+                alert("⚠️ New password must be at least 6 characters!");
+                return;
+            }
+
+            user.password = newPass;
+            localStorage.setItem("loggedInUser", JSON.stringify(user));
+            localStorage.setItem(user.username, JSON.stringify(user));
+
+            alert("✅ Password updated successfully!");
+
+            setTimeout(() => {
+                alert("Please log in again using your new password.");
+                localStorage.removeItem("loggedInUser");
+                window.location.href = "welcome.html";
+            }, 1000);
+        }
+
+        // 🔹 Display checkout history
+        const historyContainer = document.getElementById("history-container");
+        const username = user.username;
+        const history = JSON.parse(localStorage.getItem(`${username}_history`)) || [];
+
+        if (history.length > 0) {
+            historyContainer.innerHTML = "";
+            history.forEach((order, i) => {
+                        const div = document.createElement("div");
+                        div.className = "checkout-item";
+                        div.innerHTML = `
+          <b>Order #${i + 1}</b><br>
+          Date: ${order.date}<br>
+          Total: ₱${order.total}<br>
+          Items: ${order.items.map(it => `${it.name} - ₱${it.price}`).join(", ")}
+        `;
+        historyContainer.appendChild(div);
+      });
+    } else {
+      historyContainer.innerHTML = "<p class='no-history'>No checkout history yet.</p>";
+    }
+    </script>
+
+
+</body>
+
+</html>

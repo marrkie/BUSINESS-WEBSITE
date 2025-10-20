@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Welcome | Warm Crumbs & Coffee🍞☕</title>
+    <link rel="stylesheet" href="welcome.css">
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- 🔹 Background video -->
+    <video autoplay muted loop id="bg-video">
+    <source src="background bakery.mp4.mp4" type="video/mp4">
+    Your browser does not support HTML5 video.
+  </video>
+
+    <!-- 🔹 Main Content -->
+    <div class="welcome-container">
+        <div class="content">
+            <img src="logo.jpg" alt="🍞Mark's Warm Crumbs & Tea☕" class="logo">
+            <h1>Welcome To Warm Crumbs & Coffee</h1>
+            <p class="tagline">Freshly baked breads • Coffee• Cozy vibes🍞☕</p>
+
+            <!-- 🔹 Login Form -->
+            <form id="loginForm" class="form active">
+                <h2>Login</h2>
+                <input type="text" id="loginUsername" placeholder="Username" required>
+                <input type="password" id="loginPassword" placeholder="Password" required>
+                <label><input type="checkbox" id="showLoginPass"> Show Password</label>
+                <button type="submit">Login</button>
+                <p id="loginMessage" class="message"></p>
+
+                <p class="toggle-text">
+                    Don’t have an account? <a href="#" id="showSignUp">Sign up</a>
+                </p>
+                <p><a href="#" id="forgotPass">Forgot Password?</a></p>
+            </form>
+
+            <!-- 🔹 Sign Up Form -->
+            <form id="signUpForm" class="form">
+                <h2>Create Account</h2>
+                <input type="text" id="signupName" placeholder="Full Name" required>
+                <input type="email" id="signupEmail" placeholder="Email Address" required>
+                <input type="text" id="signupUsername" placeholder="Username" required>
+                <input type="password" id="signupPassword" placeholder="Password" required>
+                <label><input type="checkbox" id="showSignPass"> Show Password</label>
+                <button type="submit">Sign Up</button>
+                <p id="signupMessage" class="message"></p>
+
+                <p class="toggle-text">
+                    Already have an account? <a href="#" id="showLogin">Log in</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const loginForm = document.getElementById("loginForm");
+        const signUpForm = document.getElementById("signUpForm");
+        const showSignUp = document.getElementById("showSignUp");
+        const showLogin = document.getElementById("showLogin");
+        const showLoginPass = document.getElementById("showLoginPass");
+        const showSignPass = document.getElementById("showSignPass");
+
+        // 🔹 Switch between Login and Sign Up
+        showSignUp.addEventListener("click", (e) => {
+            e.preventDefault();
+            loginForm.classList.remove("active");
+            signUpForm.classList.add("active");
+        });
+
+        showLogin.addEventListener("click", (e) => {
+            e.preventDefault();
+            signUpForm.classList.remove("active");
+            loginForm.classList.add("active");
+        });
+
+        // 🔹 Show/Hide password toggle
+        showLoginPass.addEventListener("change", () => {
+            const passField = document.getElementById("loginPassword");
+            passField.type = showLoginPass.checked ? "text" : "password";
+        });
+        showSignPass.addEventListener("change", () => {
+            const passField = document.getElementById("signupPassword");
+            passField.type = showSignPass.checked ? "text" : "password";
+        });
+
+        // 🔹 SIGN UP
+        signUpForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            const name = document.getElementById("signupName").value.trim();
+            const email = document.getElementById("signupEmail").value.trim();
+            const username = document.getElementById("signupUsername").value.trim();
+            const password = document.getElementById("signupPassword").value.trim();
+            const message = document.getElementById("signupMessage");
+
+            if (localStorage.getItem(username)) {
+                message.textContent = "⚠️ Username already exists!";
+                message.style.color = "orange";
+                return;
+            }
+
+            if (password.length < 6) {
+                message.textContent = "⚠️ Password must be at least 6 characters!";
+                message.style.color = "orange";
+                return;
+            }
+
+            const user = {
+                name,
+                email,
+                username,
+                password
+            };
+            localStorage.setItem(username, JSON.stringify(user));
+
+            message.textContent = "✅ Account created successfully!";
+            message.style.color = "lightgreen";
+
+            setTimeout(() => {
+                signUpForm.classList.remove("active");
+                loginForm.classList.add("active");
+                message.textContent = "";
+            }, 1500);
+        });
+
+        // 🔹 LOGIN
+        loginForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            const username = document.getElementById("loginUsername").value.trim();
+            const password = document.getElementById("loginPassword").value.trim();
+            const message = document.getElementById("loginMessage");
+
+            const storedUser = localStorage.getItem(username);
+            if (!storedUser) {
+                message.textContent = "❌ User not found!";
+                message.style.color = "orange";
+                return;
+            }
+
+            const user = JSON.parse(storedUser);
+            if (user.password === password) {
+                message.textContent = "✅ Login successful!";
+                message.style.color = "lightgreen";
+
+                localStorage.setItem("loggedInUser", JSON.stringify(user));
+
+                setTimeout(() => {
+                    window.location.href = "index.html";
+                }, 1000);
+            } else {
+                message.textContent = "❌ Incorrect password!";
+                message.style.color = "red";
+            }
+        });
+
+        // 🔹 FORGOT PASSWORD
+        document.getElementById("forgotPass").addEventListener("click", (e) => {
+            e.preventDefault();
+            const username = prompt("Enter your username:");
+            if (!username) return;
+
+            const storedUser = JSON.parse(localStorage.getItem(username));
+            if (!storedUser) {
+                alert("❌ Username not found!");
+                return;
+            }
+
+            const newPass = prompt("Enter your new password (min 6 characters):");
+            if (!newPass || newPass.length < 6) {
+                alert("⚠️ Password must be at least 6 characters!");
+                return;
+            }
+
+            storedUser.password = newPass;
+            localStorage.setItem(username, JSON.stringify(storedUser));
+            alert("✅ Password reset successfully! You can now log in with your new password.");
+        });
+
+        // 🔹 LOGOUT FUNCTION (for use in other pages)
+        function logout() {
+            localStorage.removeItem("loggedInUser");
+            window.location.href = "welcome.html";
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title> Warm Crumbs & Coffee</title>
+    <meta name="description" content="Freshly baked bread and comforting teas. Welcome to Mark's Warm Crumbs & Tea!">
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <div class="wrap">
+            <a class="brand" href="#top">
+                <img src="logo.jpg" alt="Warm Crumbs & Tea">
+                <b>Warm Crumbs & Coffee</b>
+            </a>
+            <nav>
+
+                <a class="btn" href="#products">Products</a>
+                <a class="btn" href="#about">About</a>
+                <a class="btn" href="#contact">Contact</a>
+                <a class="btn" href="javascript:void(0)" onclick="toggleCart()">🛒 Cart (<span id="cart-count">0</span>)</a>
+                <a class="btn" href="account.html">Account Info</a>
+                <a class="btn" href="javascript:void(0)" onclick="confirmLogout()">Log Out</a>
+
+
+                <script>
+                    function confirmLogout() {
+                        const confirmAction = confirm("Are you sure you want to log out?");
+                        if (confirmAction) {
+                            alert("You have been logged out successfully.");
+
+                            localStorage.removeItem("loggedInUser");
+
+                            window.location.href = "welcome.html";
+                        }
+                    }
+                </script>
+
+
+            </nav>
+        </div>
+    </header>
+
+    <main id="top">
+        <section class="hero" aria-labelledby="hero-title">
+            <h1 id="hero-title">Welcome to Warm Crumbs & Coffee!! 🍞🍵</h1>
+            <p>🌸 Welcome to Warm Crumbs & Tea! 🌸<br> Every loaf is baked with love,<br> and every cup of tea is brewed to bring you comfort.<br> Take a moment to explore our menu and let us serve you the warmth and calm you deserve.</p>
+            <div class="cta">
+                <a class="btn" href="#products">Shop Now</a>
+                <a class="btn" href="#contact">Visit Us</a>
+            </div>
+        </section>
+
+        <!-- BESTSELLERS -->
+        <h2 id="products">Our Bestsellers</h2>
+        <div class="grid" id="bestsellers">
+            <article class="card" data-category="bread">
+                <img src="BREAD-TUNA-MELT-500x500.png" alt="Tuna Melt Bread">
+                <div class="pad">
+                    <h3 class="title">Tuna Melt Bread</h3>
+                    <p class="meta">Savory tuna and melted cheese goodness.</p>
+                    <div class="row">
+                        <span class="price">₱85</span>
+                        <button class="add" onclick="addToCart('Tuna Melt Bread',85)">Add</button>
+                    </div>
+                </div>
+            </article>
+
+            <article class="card" data-category="coffee">
+                <img src="Mocha Iced Coffee.jpg" alt="Mocha Iced Coffee">
+                <div class="pad">
+                    <h3 class="title">Mocha Iced Coffee</h3>
+                    <p class="meta">Rich chocolate and bold coffee blend.</p>
+                    <div class="row">
+                        <span class="price">₱130</span>
+                        <button class="add" onclick="addToCart('Mocha Iced Coffee',130)">Add</button>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <!-- PRODUCT TABS -->
+        <h2>Explore Our Menu</h2>
+        <div class="tabs">
+            <button class="tab-btn active" onclick="filterProducts('all')">All</button>
+            <button class="tab-btn" onclick="filterProducts('coffee')">Iced Coffee</button>
+            <button class="tab-btn" onclick="filterProducts('bread')">Bread</button>
+            <button class="tab-btn" onclick="filterProducts('shake')">Smoothie</button>
+        </div>
+
+        <!-- PRODUCT GRID -->
+        <div class="grid" id="product-grid">
+
+            <!-- Bread Items -->
+            <article class="card" data-category="bread">
+                <img src="CAKE-FLOSS-ROLL-1-500x500.png" alt="Floss Roll Bread">
+                <div class="pad">
+                    <h3 class="title">Floss Roll Bread</h3>
+                    <p class="meta">Soft roll topped with savory pork floss.</p>
+                    <div class="row">
+                        <span class="price">₱95</span>
+                        <button class="add" onclick="addToCart('Floss Roll Bread',95)">Add</button>
+                    </div>
+                </div>
+            </article>
+
+            <article class="card" data-category="bread">
+                <img src="BREAD-CHEESE-GARLIC.png" alt="Cheese Garlic Bread">
+                <div class="pad">
+                    <h3 class="title">Cheese Garlic Bread</h3>
+                    <p class="meta">Cheesy, buttery, and full of garlic aroma.</p>
+                    <div class="row">
+                        <span class="price">₱80</span>
+                        <button class="add" onclick="addToCart('Cheese Garlic Bread',80)">Add</button>
+                    </div>
+                </div>
+            </article>
+
+            <article class="card" data-category="bread">
+                <img src="Chocolate Babka.jpg" alt="Chocolate Babka">
+                <div class="pad">
+                    <h3 class="title">Chocolate Babka</h3>
+                    <p class="meta">Rich chocolate swirl loaf, perfectly moist.</p>
+                    <div class="row">
+                        <span class="price">₱120</span>
+                        <button class="add" onclick="addToCart('Chocolate Babka',120)">Add</button>
+                    </div>
+                </div>
+            </article>
+
+
+
+
+            <article class="card" data-category="bread">
+                <img src="dirtey loof.jpg" alt="Dirtey loaf">
+                <div class="pad">
+                    <h3 class="title">Dirtey loaf</h3>
+                    <p class="meta">Rich chocolate swirl loaf, perfectly moist.</p>
+                    <div class="row">
+                        <span class="price">₱145</span>
+                        <button class="add" onclick="addToCart('Dirtey loaf',145)">Add</button>
+                    </div>
+                </div>
+            </article>
+
+            <article class="card" data-category="bread">
+                <img src="almond bread.jpg" alt="Almond Bread">
+                <div class="pad">
+                    <h3 class="title">Almond Bread</h3>
+                    <p class="meta">Crispy bread coated with sliced almonds.</p>
+                    <div class="row">
+                        <span class="price">₱90</span>
+                        <button class="add" onclick="addToCart('Almond Bread',90)">Add</button>
+                    </div>
+                </div>
+            </article>
+
+            <article class="card" data-category="bread">
+                <img src="BREAD-CORNDOG-500x500.png" alt="Corn Dog Bread">
+                <div class="pad">
+                    <h3 class="title">Corn Dog Bread</h3>
+                    <p class="meta">Sweet bread stuffed with sausage and cheese.</p>
+                    <div class="row">
+                        <span class="price">₱85</span>
+                        <button class="add" onclick="addToCart('Corn Dog Bread',85)">Add</button>
+                    </div>
+                </div>
+            </article>
+
+            <article class="card" data-category="bread">
+                <img src="BREAD-24K-500x500.png" alt="24K Bread">
+                <div class="pad">
+                    <h3 class="title">24K Bread</h3>
+                    <p class="meta">Golden cheese-topped bread, rich and creamy.</p>
+                    <div class="row">
+                        <span class="price">₱100</span>
+                        <button class="add" onclick="addToCart('24K Bread',100)">Add</button>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Iced Coffee -->
+            <article class="card" data-category="coffee">
+                <img src="Classic Iced Coffee.jpg" alt="Classic Iced Coffee">
+                <div class="pad">
+                    <h3 class="title">Classic Iced Coffee</h3>
+                    <p class="meta">Smooth, strong, and perfectly chilled.</p>
+                    <div class="row">
+                        <span class="price">₱120</span>
+                        <button class="add" onclick="addToCart('Classic Iced Coffee',120)">Add</button>
+                    </div>
+                </div>
+            </article>
+
+
+
+
+            <article class="card" data-category="coffee">
+                <img src="ice Caramel Latte.jpg" alt="Iced Caramel Latte">
+                <div class="pad">
+                    <h3 class="title">Iced Caramel Latte</h3>
+                    <p class="meta">Sweet caramel and creamy espresso harmony.</p>
+                    <div class="row">
+                        <span class="price">₱140</span>
+                        <button class="add" onclick="addToCart('Iced Caramel Latte',140)">Add</button>
+                    </div>
+                </div>
+            </article>
+
+            <article class="card" data-category="coffee">
+                <img src="Iced Coconut Coffee.jpg" alt="Iced Coconut Coffee">
+                <div class="pad">
+                    <h3 class="title">Iced Coconut Coffee</h3>
+                    <p class="meta">Fresh brewed Vietnamese coffee topped with icy hills of sweet and frothy coconut slush. Is your mouth watering because mine is? Ice-blended Vietnamese coconut coffee is much more than just a caffeine rush, it’s a nice pick me up best
+                        eaten for any time of the day..</p>
+                    <div class="row">
+                        <span class="price">₱150</span>
+                        <button class="add" onclick="addToCart('Iced Coconut Coffee',150)">Add</button>
+                    </div>
+                </div>
+            </article>
+
+            <article class="card" data-category="coffee">
+                <img src="Iced Coffee Float.jpg" alt="Iced Coffee Float">
+                <div class="pad">
+                    <h3 class="title">Iced Coffee Float</h3>
+                    <p class="meta">A major upgrade from your usual iced coffee, chocolate syrup and vanilla ice cream make these sweet.</p>
+                    <div class="row">
+                        <span class="price">₱130</span>
+                        <button class="add" onclick="addToCart('Iced Coffee Float',130)">Add</button>
+                    </div>
+                </div>
+            </article>
+
+
+            <article class="card" data-category="coffee">
+                <img src="Mocha Iced Coffee.jpg" alt="Mocha Iced Coffee">
+                <div class="pad">
+                    <h3 class="title">Mocha Iced Coffee</h3>
+                    <p class="meta">Smooth, strong, and perfectly chilled.</p>
+                    <div class="row">
+                        <span class="price">₱135</span>
+                        <button class="add" onclick="addToCart('Mocha Iced Coffee',135)">Add</button>
+                    </div>
+                </div>
+            </article>
+
+
+
+
+            <article class="card" data-category="coffee">
+                <img src="Vietnamese Iced Coffee.jpg" alt="Vietnamese Iced Coffee">
+                <div class="pad">
+                    <h3 class="title">Vietnamese Iced Coffee</h3>
+                    <p class="meta">A strong Vietnamese iced coffee recipe with sweetened condensed milk — chilled for an unbeatable....</p>
+                    <div class="row">
+                        <span class="price">₱120</span>
+                        <button class="add" onclick="addToCart('Vietnamese Iced Coffee',120)">Add</button>
+                    </div>
+                </div>
+            </article>
+
+
+
+
+        </div>
+
+        <!-- ABOUT SECTION -->
+        <h2 id="about">About Us</h2>
+        <section class="about">
+            <p><b>Our Story:</b> Warm Crumbs & Tea is a cozy spot where fresh bread meets soothing tea.</p>
+            <ul>
+                <li>Fresh, high-quality ingredients</li>
+                <li>Locally sourced and sustainable</li>
+                <li>Oven-fresh breads and pastries, baked daily</li>
+                <li>A wide variety of calming teas and refreshing blends</li>
+                <li>Made with love, served with warmth</li>
+            </ul>
+        </section>
+
+        <!-- CONTACT -->
+        <h2 id="contact">Contact</h2>
+        <section class="contact">
+            <p>Email: <a href="mailto:@warmcrumbsandtea.com">@warmcrumbsandtea.com</a></p>
+            <p>Phone: <a href="tel:+639672371485">+63 967 237 1485</a></p>
+            <p>Find us: <a href="https://www.google.com/maps/search/coffee+shop+near+me" target="_blank">View on Map</a></p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="foot">
+            <div> 🍞Warm Crumbs & Tea🍵</div>
+            <div><a href="#top">Back to top ↑</a></div>
+        </div>
+    </footer>
+
+    <!-- CART BOX -->
+    <div id="cart-box">
+        <h3>Your Cart</h3>
+        <div id="cart-items">
+            <p>No items yet.</p>
+        </div>
+        <p id="cart-total"><b>Total: ₱0</b></p>
+        <button class="checkout" onclick="openConfirm()">Checkout</button>
+    </div>
+
+    <!-- CONFIRMATION POPUP -->
+    <div id="overlay">
+        <div id="popup">
+            <h3>Confirm Your Order</h3>
+            <ul id="popup-items"></ul>
+            <p id="popup-total"></p>
+            <button class="yes-btn" onclick="confirmCheckout()">Yes</button>
+            <button class="no-btn" onclick="closeConfirm(true)">No</button>
+        </div>
+    </div>
+
+    <div id="toast"></div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
